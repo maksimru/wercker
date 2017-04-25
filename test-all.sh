@@ -95,6 +95,16 @@ runTests() {
   basicTest "after steps" build --pipeline build_true "$testsDir/after-steps-fail" --docker-local || return 1
   basicTest "relative symlinks" build "$testsDir/relative-symlinks" --docker-local || return 1
 
+  # test different shells
+  basicTest "bash_or_sh alpine" build --pipeline test-alpine --docker-local "$testsDir/bash_or_sh" || return 1
+  basicTest "bash_or_sh busybox" build --pipeline test-busybox --docker-local "$testsDir/bash_or_sh" || return 1
+  basicTest "bash_or_sh ubuntu" build --pipeline test-ubuntu --docker-local "$testsDir/bash_or_sh" || return 1
+  # test for a specific bug around failures
+  basicTestFail "bash_or_sh alpine failures" --no-colors  build --pipeline test-alpine-fail --docker-local "$testsDir/bash_or_sh" || return 1
+  grep -q "second fail" "${workingDir}/bash_or_sh alpine failures.log" && echo "^^ failed" && return 1
+  basicTestFail "bash_or_sh ubuntu failures" --no-colors  build --pipeline test-ubuntu-fail --docker-local "$testsDir/bash_or_sh" || return 1
+  grep -q "second fail" "${workingDir}/bash_or_sh ubuntu failures.log" && echo "^^ failed" && return 1
+
   # this one will fail but we'll grep the log for After-step passed: test
   basicTestFail "after steps fail" --no-colors build --pipeline build_fail "$testsDir/after-steps-fail" --docker-local || return 1
   grep -q "After-step passed: test" "${workingDir}/after steps fail.log" || return 1

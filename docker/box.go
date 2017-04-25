@@ -87,7 +87,7 @@ func NewDockerBox(boxConfig *core.BoxConfig, options *core.PipelineOptions, dock
 
 	cmd := boxConfig.Cmd
 	if cmd == "" {
-		cmd = "/bin/bash"
+		cmd = DefaultDockerCommand
 	}
 
 	entrypoint := boxConfig.Entrypoint

@@ -45,6 +45,8 @@ import (
 	"golang.org/x/net/context"
 )
 
+var DefaultDockerCommand = `/bin/sh -c "if [ -e /bin/bash ]; then /bin/bash; else /bin/sh; fi"`
+
 func RequireDockerEndpoint(options *Options) error {
 	client, err := NewDockerClient(options)
 	if err != nil {
@@ -124,6 +126,7 @@ func NewDockerClient(options *Options) (*DockerClient, error) {
 // RunAndAttach gives us a raw connection to a newly run container
 func (c *DockerClient) RunAndAttach(name string) error {
 	hostConfig := &docker.HostConfig{}
+	cmd, _ := shlex.Split(DefaultDockerCommand)
 	container, err := c.CreateContainer(
 		docker.CreateContainerOptions{
 			Name: uuid.NewRandom().String(),
@@ -131,7 +134,7 @@ func (c *DockerClient) RunAndAttach(name string) error {
 				Image:        name,
 				Tty:          true,
 				OpenStdin:    true,
-				Cmd:          []string{"/bin/bash"},
+				Cmd:          cmd,
 				AttachStdin:  true,
 				AttachStdout: true,
 				AttachStderr: true,

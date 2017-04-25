@@ -78,7 +78,8 @@ func (s *ShellStep) InitEnv(env *util.Environment) {
 			s.Cmd = parts
 		}
 	} else {
-		s.Cmd = []string{"/bin/bash"}
+		cmd, _ := shlex.Split(DefaultDockerCommand)
+		s.Cmd = cmd
 	}
 	s.env = env
 }
