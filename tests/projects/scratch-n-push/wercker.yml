@@ -10,5 +10,5 @@ build:
         username: $DOCKER_USER
         password: $DOCKER_PASSWORD
         registry: https://quay.io
-        tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+        tag: uniqueTagFromTest
         repository: quay.io/wercker/scratch-n-push

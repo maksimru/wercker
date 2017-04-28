@@ -7,6 +7,8 @@
   amongst themselves, defaults to no limits (#299)
 - Automatically detect bash or sh for containers by default,
   defaulting to bash if it is there (#301)
+- Fix a small bug when doing local deploys and using a working-dir other
+  than .wercker (#301)
 
 ## v1.0.758 (2017-01-27)
 

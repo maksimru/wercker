@@ -761,10 +761,11 @@ func NewDeployOptions(c util.Settings, e *util.Environment) (*PipelineOptions, e
 	// default to last build output if none defined
 	target, _ := c.String("target")
 	if target == "" {
-		found, err := util.Exists("./.wercker/latest/output")
+		latestPath := pipelineOpts.WorkingPath("latest", "output")
+		found, err := util.Exists(latestPath)
 		if err == nil && found {
 			util.RootLogger().Println("No target specified, using recent build output.")
-			pipelineOpts.ProjectPath, _ = filepath.Abs("./.wercker/latest/output")
+			pipelineOpts.ProjectPath, _ = filepath.Abs(latestPath)
 		}
 	}
 
