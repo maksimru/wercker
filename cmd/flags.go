@@ -102,15 +102,6 @@ var (
 			the region named by --aws-region`},
 	}
 
-	// These flags affect our local execution environment
-	DevFlags = []cli.Flag{
-		cli.StringFlag{Name: "environment", Value: "ENVIRONMENT", Usage: "Specify additional environment variables in a file.", EnvVar: "WERCKER_ENVIRONMENT_FILE"},
-		cli.BoolFlag{Name: "verbose", Usage: "Print more information."},
-		cli.BoolFlag{Name: "no-colors", Usage: "Wercker output will not use colors (does not apply to step output)."},
-		cli.BoolFlag{Name: "debug", Usage: "Print additional debug information."},
-		cli.BoolFlag{Name: "journal", Usage: "Send logs to systemd-journald. Suppresses stdout logging."},
-	}
-
 	// These flags are advanced dev settings
 	InternalDevFlags = []cli.Flag{
 		cli.BoolTFlag{Name: "direct-mount", Usage: "Mount our binds read-write to the pipeline path."},

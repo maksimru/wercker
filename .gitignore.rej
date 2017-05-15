@@ -1,8 +1,0 @@
-diff a/.gitignore b/.gitignore	(rejected hunks)
-@@ -1,4 +0,4 @@
--vendor/*/
--wercker
-+vendor
-+wercker*
- .wercker
- .DS_STORE
