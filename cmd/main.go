@@ -34,13 +34,11 @@ import (
 	"github.com/fsouza/go-dockerclient"
 	"github.com/joho/godotenv"
 	"github.com/mreiferson/go-snappystream"
-	"github.com/wercker/journalhook"
 	"github.com/wercker/wercker/api"
 	"github.com/wercker/wercker/core"
 	"github.com/wercker/wercker/docker"
 	"github.com/wercker/wercker/util"
 	"golang.org/x/net/context"
-	"golang.org/x/sys/unix"
 )
 
 var (
@@ -328,52 +326,6 @@ var (
 		}
 	}
 )
-
-func GetApp() *cli.App {
-	// logger.SetLevel(logger.DebugLevel)
-	// util.RootLogger().SetLevel("debug")
-	// util.RootLogger().Formatter = &logger.JSONFormatter{}
-
-	app := cli.NewApp()
-	setupUsageFormatter(app)
-	app.Author = "Team wercker"
-	app.Name = "wercker"
-	app.Usage = "build and deploy from the command line"
-	app.Email = "pleasemailus@wercker.com"
-	app.Version = util.FullVersion()
-	app.Flags = FlagsFor(GlobalFlagSet)
-	app.Commands = []cli.Command{
-		buildCommand,
-		devCommand,
-		checkConfigCommand,
-		deployCommand,
-		detectCommand,
-		// inspectCommand,
-		loginCommand,
-		logoutCommand,
-		pullCommand,
-		versionCommand,
-		documentCommand(app),
-	}
-	app.Before = func(ctx *cli.Context) error {
-		if ctx.GlobalBool("debug") {
-			util.RootLogger().Formatter = &util.VerboseFormatter{}
-			util.RootLogger().SetLevel("debug")
-		} else {
-			util.RootLogger().Formatter = &util.TerseFormatter{}
-			util.RootLogger().SetLevel("info")
-		}
-		if ctx.GlobalBool("journal") {
-			util.RootLogger().Hooks.Add(&journalhook.JournalHook{})
-			util.RootLogger().Out = ioutil.Discard
-		}
-		// Register the global signal handler
-		util.GlobalSigint().Register(os.Interrupt)
-		util.GlobalSigterm().Register(unix.SIGTERM)
-		return nil
-	}
-	return app
-}
 
 // SoftExit is a helper for determining when to show stack traces
 type SoftExit struct {

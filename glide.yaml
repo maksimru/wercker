@@ -1,0 +1,68 @@
+package: github.com/wercker/wercker
+import:
+  - package: github.com/pborman/uuid
+  - package: github.com/Sirupsen/logrus
+    ref:     844911c
+    vcs:     git
+  - package: github.com/codegangsta/cli
+    repo:    https://github.com/wercker/codegangsta-cli
+    ref:     863dc328534d8e22f36386bce3da48dc572a8ddf
+    vcs:     git
+  - package: github.com/docker/docker/pkg/term
+  - package: github.com/docker/docker/pkg/signal
+  - package: github.com/docker/docker/utils
+  - package: github.com/docker/go-units
+    # subpackages:
+    #   - pkg/term
+    #   - pkg/signal
+    #   - utils
+    # ref:     d3a6a53
+    # vcs:     git
+  - package: github.com/fsouza/go-dockerclient
+    # ref:     f6e9f5396e0e8f34472efe443d0cb7f9af162b88
+    # vcs:     git
+  - package: github.com/termie/go-shutil
+    ref:     bcacb06
+    vcs:     git
+  - package: gopkg.in/yaml.v2
+    repo:    https://github.com/wercker/yaml
+    ref:     fix_bool
+    vcs:     git
+  - package: github.com/chuckpreslar/emission
+    ref:     586ef24
+    vcs:     git
+  - package: github.com/wercker/reporter-client
+  - package: github.com/inconshreveable/go-keen
+    ref:     3b8ced9
+    vcs:     git
+  - package: github.com/joho/godotenv
+    ref:     ead2e75
+    vcs:     git
+  - package: github.com/stretchr/testify/suite
+  - package: github.com/stretchr/testify/assert
+  - package: golang.org/x/net/context
+  - package: golang.org/x/sys/unix
+  - package: github.com/mreiferson/go-snappystream
+  - package: github.com/wercker/journalhook
+    os:
+      - darwin
+      - linux
+  - package: github.com/jtacoma/uritemplates
+  - package: github.com/CenturyLinkLabs/docker-reg-client
+    ref:     0bb0ba20bf1a05629226c2da0fdf7a37b9f661ba
+    vcs:     git
+  - package: github.com/google/shlex
+  - package: gopkg.in/fsnotify.v1
+  - package: github.com/cheggaaa/pb
+  - package: github.com/aws/aws-sdk-go
+    ref:     v0.9.7
+    vcs:     git
+  # this is dependency of aws-sdk-go, but glide doesn't install it unless you
+  # explicitly define it :-/
+  - package: github.com/vaughan0/go-ini
+  - package: github.com/coreos/go-systemd
+    os:
+      - darwin
+      - linux
+    ref: d08b1d0cf9e96bf287b33d3a2c55132e185b273b
+    vcs: git
