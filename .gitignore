@@ -1,4 +1,4 @@
-vendor
-wercker*
+vendor/*/
+wercker
 .wercker
 .DS_STORE
